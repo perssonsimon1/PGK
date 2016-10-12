@@ -23,7 +23,7 @@ object TurtleRace {
       }
     }
     rw.printRacers(winners.toArray, 370, "Winners")
-    JOptionPane.showMessageDialog(null, s"Press OK to continue")
+    JOptionPane.showMessageDialog(null, s"Press OK to continue", "Race finished", JOptionPane.INFORMATION_MESSAGE)
     winners.toList
   }
 
@@ -33,8 +33,7 @@ object TurtleRace {
         Thread.sleep(time.toLong)
 
       catch {
-        case time: InterruptedException => {
-        }
+        case time: InterruptedException =>
       }
     }
   }

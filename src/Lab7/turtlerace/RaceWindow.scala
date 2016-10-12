@@ -5,7 +5,7 @@ import cslib.window._
 class RaceWindow extends SimpleWindow(800, 600, "Tävlingsfönster"){
   private val startX = 100
   private val endX = 700
-  val noOfTurtles = 8;
+  val noOfTurtles = 8
   /**
     * Draws a race in the RaceWindow
     */
@@ -15,7 +15,7 @@ class RaceWindow extends SimpleWindow(800, 600, "Tävlingsfönster"){
     setLineColor(java.awt.Color.CYAN)
     lineTo(getStartX/2, 400)
     moveTo(getEndX+(800-getEndX)/2, 0)
-    setLineColor(java.awt.Color.MAGENTA)
+    setLineColor(java.awt.Color.CYAN)
     lineTo(getEndX+(800-getEndX)/2, 400)
     setLineColor(java.awt.Color.BLACK)
     for(i <- 1 to noOfTurtles){
