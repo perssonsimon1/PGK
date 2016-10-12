@@ -44,7 +44,7 @@ object TurtleTournament {
       window.clear
       window.draw
       val racingTurtles: Seq[RaceTurtle] = turtleVector.slice(i-8, i)
-      winners((i/8) - 1) = TurtleRace.race(makeIndex(racingTurtles), window, s"Quarterfinals : ${i/8}")
+      winners((i/8) - 1) = TurtleRace.race(racingTurtles, window, s"Quarterfinals : ${i/8}")
     }
 
     //Quarterfinals (2 races)
@@ -52,23 +52,15 @@ object TurtleTournament {
       window.clear
       window.draw
       val racingTurtles: Seq[RaceTurtle] = winners(i).slice(0,4) ++ winners(i+1).slice(0,4)
-      winners(if(i == 0) 4 else 5) = TurtleRace.race(makeIndex(racingTurtles), window, s"Semi final :${if(i == 0) 1 else 2}")
+      winners(if(i == 0) 4 else 5) = TurtleRace.race(racingTurtles, window, s"Semi final :${if(i == 0) 1 else 2}")
     }
 
     //Final (1 race) - Only 1 Winner
     window.clear
     window.draw
     val racingTurtles: Seq[RaceTurtle] = winners(4).slice(0,4) ++ winners(5).slice(0,4)
-    winners(6) = TurtleRace.race(makeIndex(racingTurtles), window, "Final Race")
+    winners(6) = TurtleRace.race(racingTurtles, window, "Final Race")
 
     JOptionPane.showMessageDialog(null, s"The winner is ${winners(6).head.name}")
-  }
-
-  def makeIndex(turtles: Seq[RaceTurtle]): Seq[RaceTurtle] = {
-    for(i <- turtles.indices){
-      turtles(i).nbr = i + 1
-      turtles(i).restart
-    }
-    turtles
   }
 }

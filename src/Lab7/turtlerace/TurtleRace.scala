@@ -9,8 +9,16 @@ object TurtleRace {
     */
   def race(turtles: Seq[RaceTurtle], rw: RaceWindow, title: String): List[RaceTurtle] = {
     rw.printTitle(title)
+
+    for(i <- turtles.indices){
+      turtles(i).nbr = i + 1
+      turtles(i).restart
+    }
+
     rw.printRacers(turtles.toArray,20, "Racers")
+
     var winners = new ArrayBuffer[RaceTurtle]
+
     while (winners.length < 8) {
       for (i <- turtles.indices) {
         if (!winners.contains(turtles(i))) {
@@ -22,8 +30,9 @@ object TurtleRace {
         }
       }
     }
+
     rw.printRacers(winners.toArray, 370, "Winners")
-    JOptionPane.showMessageDialog(null, s"Press OK to continue", "Race finished", JOptionPane.INFORMATION_MESSAGE)
+    rw.waitForMouseClick()
     winners.toList
   }
 
