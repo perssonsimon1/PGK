@@ -22,7 +22,7 @@ object TurtleTournament {
       new RaceTurtle(rw, index, name, Color.YELLOW) with Showoff
     )
 
-    capacities(rnd.nextInt(4))//Set 4 to include Showoff
+    capacities(rnd.nextInt(3))//Set 4 to include Showoff
 }
 
   def startTournament (): Unit = {

@@ -15,7 +15,7 @@ class RaceWindow extends SimpleWindow(800, 600, "Tävlingsfönster"){
     setLineColor(java.awt.Color.CYAN)
     lineTo(getStartX/2, 400)
     moveTo(getEndX+(800-getEndX)/2, 0)
-    setLineColor(java.awt.Color.CYAN)
+    setLineColor(java.awt.Color.MAGENTA)
     lineTo(getEndX+(800-getEndX)/2, 400)
     setLineColor(java.awt.Color.BLACK)
     for(i <- 1 to noOfTurtles){
