@@ -19,10 +19,10 @@ object TurtleTournament {
       new RaceTurtle(rw, index, name, Color.RED) with AbsentMindedness,
       new RaceTurtle(rw, index, name, Color.GREEN) with Dizziness,
       new RaceTurtle(rw, index, name, Color.BLUE) with Mole,
-      new RaceTurtle(rw, index, name, Color.YELLOW) with Showoff
+      new RaceTurtle(rw, index, name, Color.MAGENTA) with Showoff
     )
 
-    capacities(rnd.nextInt(3))//Set 4 to include Showoff
+    capacities(rnd.nextInt(4))//Set 4 to include Showoff
 }
 
   def startTournament (): Unit = {

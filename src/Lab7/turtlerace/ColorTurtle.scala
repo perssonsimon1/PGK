@@ -4,8 +4,7 @@ package Lab7.turtlerace
   import cslib.window.SimpleWindow
 
   class ColorTurtle (window: SimpleWindow,
-                     private var color: Color,
-                     private var name: String
+                     private var color: Color
 
                     ) extends Turtle(window) {
 

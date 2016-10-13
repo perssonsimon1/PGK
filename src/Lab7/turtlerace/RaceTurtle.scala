@@ -5,7 +5,7 @@ import java.awt.Color
 
 
 class RaceTurtle(private val window: RaceWindow, var nbr: Int, val name: String, color: Color)
-  extends ColorTurtle(window, color, name) {
+  extends ColorTurtle(window, color) {
 
   /**
     * Takes one step of a random length 1 to 5
@@ -70,7 +70,7 @@ trait AbsentMindedness extends RaceTurtle {
   }
 
   override def toString: String = {
-    super.toString() + s"AbsentMinded [${_absentMindedness * 100}%]"
+    super.toString() + s"AbsentMinded [${(_absentMindedness * 100).toInt}%]"
   }
 }
 
@@ -98,7 +98,7 @@ trait Showoff extends RaceTurtle {
     val discipline = math.random
     val doLoop = discipline < _needForAttention
     if (doLoop) {
-      walkInCircle((_needForAttention - discipline) * 30)
+      walkInCircle((_needForAttention - discipline + 0.1) * 15)
     } else {
       super.raceStep()
     }
@@ -106,7 +106,7 @@ trait Showoff extends RaceTurtle {
   }
 
   override def toString: String = {
-    super.toString() + s"Showoff [${_needForAttention * 100}%]"
+    super.toString() + s"Showoff [${(_needForAttention * 100).toInt}%]"
   }
 }
 

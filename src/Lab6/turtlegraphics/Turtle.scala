@@ -79,6 +79,8 @@ class Turtle(window: SimpleWindow,
 
   def walkInCircle( radius: Double ): Unit = {
 
+    val startAngle = angle;
+    val startPos = position;
     turnLeft( 90 );
     val noOfSteps = (radius*2.0*math.Pi).toInt;
 
@@ -90,6 +92,9 @@ class Turtle(window: SimpleWindow,
       turnRight(turn);
     }
     turnRight( 90 );
+
+    position = startPos;
+    angle = startAngle;
   }
 
 }
