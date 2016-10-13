@@ -1,6 +1,5 @@
 package Lab7.turtlerace
 
-import javax.swing.JOptionPane
 import scala.collection.mutable.ArrayBuffer
 import cslib.window.SimpleWindow
 
