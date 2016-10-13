@@ -19,7 +19,7 @@ object TurtleTournament {
       new RaceTurtle(rw, index, name, Color.RED) with AbsentMindedness,
       new RaceTurtle(rw, index, name, Color.GREEN) with Dizziness,
       new RaceTurtle(rw, index, name, Color.BLUE) with Mole,
-      new RaceTurtle(rw, index, name, Color.MAGENTA) with Showoff
+      new RaceTurtle(rw, index, name, Color.ORANGE) with Showoff
     )
 
     capacities(rnd.nextInt(4))//Set 4 to include Showoff
