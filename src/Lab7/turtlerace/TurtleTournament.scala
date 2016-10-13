@@ -38,7 +38,6 @@ object TurtleTournament {
 
     val winners: Array[List[RaceTurtle]] = new Array(7)
 
-    //First 4 races
 
     for(i <- 8 to 32 by 8) {
       window.clear
@@ -47,7 +46,6 @@ object TurtleTournament {
       winners((i/8) - 1) = TurtleRace.race(racingTurtles, window, s"Quarterfinals : ${i/8}")
     }
 
-    //Quarterfinals (2 races)
     for(i <- 0 to 2 by 2) {
       window.clear
       window.draw
@@ -55,7 +53,6 @@ object TurtleTournament {
       winners(if(i == 0) 4 else 5) = TurtleRace.race(racingTurtles, window, s"Semi final :${if(i == 0) 1 else 2}")
     }
 
-    //Final (1 race) - Only 1 Winner
     window.clear
     window.draw
     val racingTurtles: Seq[RaceTurtle] = winners(4).slice(0,4) ++ winners(5).slice(0,4)

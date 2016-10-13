@@ -2,6 +2,7 @@ package Lab7.turtlerace
 
 import javax.swing.JOptionPane
 import scala.collection.mutable.ArrayBuffer
+import cslib.window.SimpleWindow
 
 object TurtleRace {
   /**
@@ -23,7 +24,7 @@ object TurtleRace {
       for (i <- turtles.indices) {
         if (!winners.contains(turtles(i))) {
           turtles(i).raceStep
-          delay(3)
+          SimpleWindow.delay(3)
           if (turtles(i).x >= rw.getEndX) {
             winners += turtles(i)
           }
@@ -34,17 +35,6 @@ object TurtleRace {
     rw.printRacers(winners.toArray, 370, "Winners")
     rw.waitForMouseClick()
     winners.toList
-  }
-
-  def delay (time: Int): Unit = {
-    if(time > 0) {
-      try
-        Thread.sleep(time.toLong)
-
-      catch {
-        case time: InterruptedException =>
-      }
-    }
   }
 
 }
