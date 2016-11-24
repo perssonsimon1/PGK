@@ -4,7 +4,7 @@
 *.log
 
 #IntelliJ specific
-.idea/
+.idea/*
 *.iml
 
 # sbt specific
@@ -29,3 +29,4 @@ project/plugins/project/
 .DS_Store
 .idea/workspace.xml
 out/
+.idea/
