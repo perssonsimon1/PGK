@@ -21,24 +21,56 @@ case class Table(matrix: Vector[Vector[String]],
                  separator: String) {
 
   /** Returns the number of (rows, columns) of the matrix data. */
-  val dim: (Int, Int) = ???
+  val dim: (Int, Int) = if(matrix.length > 0) (matrix.length, matrix(0).length) else (0,0)
+
 
   /** Returns the values from a specified column. */
-  def col(c: Int): Vector[String] = ???
+  def col(c: Int): Vector[String] = {
+    matrix.map(x => x(c))
+  }
 
   /** Returns the matrix in string format using separator between columns*/
-  override lazy val toString: String = ???
+  override lazy val toString: String =  {
+    var out: String = ""
+    matrix.foreach(x => out += x.mkString(",") + "\n" )
+    out
+  }
 
   /** A new Table with rows sorted on column c (implemented using sortBy). */
-  def sort(c: Int): Table = ???
+  def sort(c: Int): Table = Table(matrix.sortBy(_(c)), headings, separator)
 
   /** A new Table with rows sorted on column c (implemented from scratch). */
-  def mySort(c: Int): Table = ???
+  def mySort(c: Int): Table = {
+
+    /** Returns true if s1 should be sorted before s2, otherwise false*/
+    def compare(s1: String, s2: String): Boolean = {
+      val res = s1.compareTo(s2)
+      if (res < 0) true
+      else if (res > 0) false
+      else false
+    }
+
+    val sortArray: Array[Array[String]] = matrix.map(x => x.toArray).toArray
+
+    /** Performing insertion sort on vector*/
+    for(index <- 1 until sortArray.length) {
+      val cur: String = sortArray(index)(c)
+      var u: Int = index
+      while(u > 0 && compare(cur, sortArray(u - 1)(c))){
+        sortArray(u)(c) = sortArray(u-1)(c)
+        u -= 1
+      }
+      sortArray(u)(c) = cur
+    }
+    val newMatrix = sortArray.map(x => x.toVector).toVector
+    Table(newMatrix, headings, separator)
+  }
 
   /**
     * A new Table filtered so that column c only contains the wanted values.
     */
-  def filter(c: Int, wanted: Vector[String]): Table = ???
+  def filter(c: Int, wanted: Vector[String]): Table = Table(matrix.filter(x => wanted.contains(x(c))),headings,separator)
+
 
   /**
     * Returns the distinct values for the given column coupled with the number
@@ -46,7 +78,11 @@ case class Table(matrix: Vector[Vector[String]],
     * number of occurrences. The first element is the column header together
     * with the total number of occurrences for all values.
     */
-  def register(c: Int): Vector[(String, Int)] = ???
+  def register(c: Int): Vector[(String, Int)] = {
+    val regVec: Vector[(String, Int)] = matrix.groupBy(a => a(c)).map(t => (t._1, t._2.length)).toVector
+    val out = (headings(c), matrix.length) +: regVec.sortWith(_._2 > _._2)
+    out
+  }
 }
 
 object Table {
