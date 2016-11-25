@@ -7,7 +7,56 @@ import java.awt.Color
 object Chart {
 
   /** Create a bar chart from regData with pairs of (label, frequency) */
-  def bar(regData: Vector[(String, Int)]): Unit = ???
+  def bar(regData: Vector[(String, Int)]): Unit = {
+    val title = regData.head._1
+    val data = regData.tail
+    val sum = regData.head._2
+
+    //Window
+    val padding = 30
+    val width = data.length * 80 + (padding * 2)
+    val height = 400
+    val sw = new SimpleWindow(width, height, title)
+
+
+    //Graph - Outline
+    sw.moveTo(padding, padding - 10)
+    sw.writeText(title)
+    sw.moveTo(padding, padding)
+    sw.setLineColor(Color.RED)
+    sw.setLineWidth(1)
+    sw.lineTo(padding, height - padding)
+    sw.moveTo(padding, height - padding)
+    sw.lineTo(width - padding, height - padding)
+
+    //Graph - Data
+    val colors = Vector(Color.RED, Color.BLUE, Color.GREEN,
+      Color.MAGENTA, Color.ORANGE, Color.PINK, Color.YELLOW, Color.CYAN)
+    sw.setLineWidth(40)
+    val pixValue = math.round(300.0/sum).toInt
+
+    for(i <- data.indices) {
+      sw.setLineColor(colors(i % colors.size))
+      val posX = (i + 1) * 80 - 40 + padding
+      val posY1 = height - padding
+      val posY2 = height - padding - (data(i)._2 * pixValue)
+
+      sw.moveTo(posX,posY1)
+      sw.lineTo(posX, posY2)
+
+      //Text
+      sw.setLineColor(Color.BLACK)
+      sw.moveTo(posX-20, posY1 + 15)
+      sw.writeText(data(i)._1)
+      sw.moveTo(posX-5, posY2 - 15)
+      sw.writeText(data(i)._2.toString)
+
+
+    }
+
+
+
+  }
 
   /** Create a pie chart from regData with pairs of (label, frequency) */
   def pie(regData: Vector[(String, Int)]): Unit = {

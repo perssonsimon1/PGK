@@ -21,7 +21,9 @@ case class Table(matrix: Vector[Vector[String]],
                  separator: String) {
 
   /** Returns the number of (rows, columns) of the matrix data. */
-  val dim: (Int, Int) = if(matrix.length > 0) (matrix.length, matrix(0).length) else (0,0)
+  val dim: (Int, Int) = {
+    if(matrix.length > 0) (matrix.length, matrix(0).length) else (0,0)
+  }
 
 
   /** Returns the values from a specified column. */
@@ -37,7 +39,9 @@ case class Table(matrix: Vector[Vector[String]],
   }
 
   /** A new Table with rows sorted on column c (implemented using sortBy). */
-  def sort(c: Int): Table = Table(matrix.sortBy(_(c)), headings, separator)
+  def sort(c: Int): Table = {
+    Table(matrix.sortBy(_(c)), headings, separator)
+  }
 
   /** A new Table with rows sorted on column c (implemented from scratch). */
   def mySort(c: Int): Table = {
@@ -69,7 +73,9 @@ case class Table(matrix: Vector[Vector[String]],
   /**
     * A new Table filtered so that column c only contains the wanted values.
     */
-  def filter(c: Int, wanted: Vector[String]): Table = Table(matrix.filter(x => wanted.contains(x(c))),headings,separator)
+  def filter(c: Int, wanted: Vector[String]): Table = {
+    Table(matrix.filter(x => wanted.contains(x(c))),headings,separator)
+  }
 
 
   /**
@@ -79,7 +85,7 @@ case class Table(matrix: Vector[Vector[String]],
     * with the total number of occurrences for all values.
     */
   def register(c: Int): Vector[(String, Int)] = {
-    val regVec: Vector[(String, Int)] = matrix.groupBy(a => a(c)).map(t => (t._1, t._2.length)).toVector
+    val regVec: Vector[(String, Int)] = matrix.groupBy(value => value(c)).map(u => (u._1, u._2.length)).toVector
     val out = (headings(c), matrix.length) +: regVec.sortWith(_._2 > _._2)
     out
   }
