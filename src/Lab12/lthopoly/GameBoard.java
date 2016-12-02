@@ -21,8 +21,6 @@ public class GameBoard {
     public static final int SHOW_BOARD = 6;
     public static final int EXIT_GAME = 7;
 
-    private enum gameState {THROWN, NOT_THROWN}
-
 
     /**
      * Attributes
@@ -30,11 +28,11 @@ public class GameBoard {
     private ArrayList<BoardSpace> spaces;
     private List<Player> players;
     private int currentPlayer = 0;
-    private gameState currentState = gameState.NOT_THROWN;
     private BoardSpace currentSpace;
+    private boolean has_Thrown = false;
 
 
-    private ArrayList<Integer> totalMoney;
+    private ArrayList<Integer> totalMoney = new ArrayList<>();
 
 
 
@@ -43,7 +41,13 @@ public class GameBoard {
      */
     public GameBoard(List<Player> players) {
         this.players = players;
-        this.spaces = DocumentParser.getBoard(new File("/util/board.txt"), new File("/util/moneyfile.txt"), new File("/util/movefile.txt"));
+        this.spaces = DocumentParser.getBoard(getRFile("board"), getRFile("moneycards"), getRFile("movecards"));
+    }
+
+    private File getRFile(String name){
+        ClassLoader classLoader = getClass().getClassLoader();
+        File file = new File(classLoader.getResource(name + ".txt").getFile());
+        return file;
     }
 
 
@@ -55,7 +59,7 @@ public class GameBoard {
             updateTotalMoney();
         }
         TextUI.addToLog("Nästa spelare: " + players.get(currentPlayer).getName());
-        currentState = gameState.NOT_THROWN;
+        has_Thrown = false;
     }
 
     /**
@@ -66,7 +70,7 @@ public class GameBoard {
     public int[] getPossibleActions() {
         int[] defaultActions = new int[]{EXIT_GAME, SHOW_BOARD, DEFAULT_VIEW};
         int[] out;
-        if(currentState == gameState.THROWN){
+        if(has_Thrown){
             out = merge(defaultActions, currentSpace.getPossibleActions(this));
         } else {
             out = merge(defaultActions, new int[]{THROW_DICE});
@@ -77,9 +81,10 @@ public class GameBoard {
 
     private int[] merge(int[] a, int[] b){
         int count = 0;
-        int[] out = new int[a.length + b.length];
+        int length = a.length + b.length;
+        int[] out = new int[length];
 
-        for(int i: a)
+        for(int i = 0; i < a.length; i++)
         {
             out[i]=a[i];
             count++;
@@ -138,7 +143,7 @@ public class GameBoard {
     public void doAction(int action) {
         switch (action){
             case EXIT_GAME:
-                System.exit(4);
+                System.exit(0);
                 break;
             case DEFAULT_VIEW:
                 TextUI.printStatus(this);
@@ -164,7 +169,7 @@ public class GameBoard {
         int dice = (int)(Math.random()*6) + 1;
         moveCurrentPlayer(dice);
         TextUI.addToLog(players.get(currentPlayer).getName() + " slog en " + dice + ":a");
-        currentState = gameState.THROWN;
+        has_Thrown = true;
     }
 
     /**
@@ -184,7 +189,7 @@ public class GameBoard {
     /**
      * Moves the currently active player adjustments spaces forward. Negative adjustment moves the player backwards
      */
-    private void moveCurrentPlayer(int adjustment) {
+    public void moveCurrentPlayer(int adjustment) {
         int current = players.get(currentPlayer).getPosition();
         int adjusted = (current + adjustment) % spaces.size();
         currentSpace = spaces.get(adjusted);
@@ -200,7 +205,7 @@ public class GameBoard {
         return totalMoney;
     }
 
-    private void updateTotalMoney() { //måste användas varje gång en hel runda är slut (och antagligen när spelet tar slut, även om rundan inte är slut)
+    private void updateTotalMoney() {
         int temp = 0;
         for (Player i: players) {
             temp += i.getMoney();

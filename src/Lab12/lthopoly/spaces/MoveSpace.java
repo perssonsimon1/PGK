@@ -3,6 +3,8 @@ package Lab12.lthopoly.spaces;
 import java.util.Random;
 
 import Lab12.lthopoly.GameBoard;
+import Lab12.lthopoly.Player;
+import Lab12.lthopoly.TextUI;
 import Lab12.lthopoly.cards.MoveCard;
 
 public class MoveSpace extends BoardSpace {
@@ -29,7 +31,11 @@ public class MoveSpace extends BoardSpace {
     public void action(GameBoard board, int action) {
         if (action == GameBoard.DRAW_CARD) {
             int rnd = new Random().nextInt(this.cards.length);
-            board.getCurrentPlayer().setPosition(this.cards[rnd].getPositionAdjustment());
+            MoveCard card = this.cards[rnd];
+            Player player = board.getCurrentPlayer();
+            board.moveCurrentPlayer(card.getPositionAdjustment());
+            TextUI.addToLog(player.getName() + " drog ett kort: " + card.getDescription());
+            board.doAction(GameBoard.END_TURN);
         }
         else if (action == GameBoard.END_TURN) {
             board.doAction(GameBoard.END_TURN);

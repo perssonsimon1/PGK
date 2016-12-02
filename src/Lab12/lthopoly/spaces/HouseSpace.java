@@ -3,6 +3,7 @@ package Lab12.lthopoly.spaces;
 import Lab12.lthopoly.GameBoard;
 
 import Lab12.lthopoly.Player;
+import Lab12.lthopoly.TextUI;
 
 public class HouseSpace extends BoardSpace {
     private Player owner;        // OBS importera player uppe, blir null från början eftersom ingen tilldelning i konstruktorn
@@ -40,8 +41,10 @@ public class HouseSpace extends BoardSpace {
         if (owner == null) {	/* ingen äger huset*/
             // antingen: köp fastigheten, bli av med pengar. "this" för att det är klassens attribut, övertydlig
             if (action == GameBoard.BUY_PROPERTY) {
-                board.getCurrentPlayer().adjustMoney(this.rent);
+                board.getCurrentPlayer().adjustMoney(-this.rent);
                 owner = board.getCurrentPlayer();
+                TextUI.addToLog(owner.getName() + " Köpte: " + description);
+                board.doAction(GameBoard.END_TURN);
             }
             else if (action == GameBoard.END_TURN) {
                 board.doAction(GameBoard.END_TURN);
@@ -50,7 +53,7 @@ public class HouseSpace extends BoardSpace {
             board.doAction(GameBoard.END_TURN);
         } else if (owner != board.getCurrentPlayer()) { /* en annan spelare äger huset*/
             // betala hyra, bli av med pengar
-            board.getCurrentPlayer().adjustMoney(this.rent);
+            board.getCurrentPlayer().adjustMoney(-this.rent);
             owner.adjustMoney(Math.abs(rent));
             board.doAction(GameBoard.END_TURN);
         }

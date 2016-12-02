@@ -45,7 +45,7 @@ public class Player {
      */
     @Override
     public String toString() {
-        return pos + ", " + name + ", " + money + ":-";
+        return name;
     }
 
     /**
