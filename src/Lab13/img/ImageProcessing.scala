@@ -18,7 +18,8 @@ object ImageProcessing {
       new InvertFilter("Invert filter",0),
       new GreyScaleFilter("Gråskale filter",0),
       new XORCryptFilter("XORCrypt filter", 1),
-      new GaussFilter("Gauss filter", 1)
+      new GaussFilter("Gauss filter", 1),
+      new SobelFilter("Sobel filter", 1)
     )
     val fc = new FilterChooser(filters)
     val fl = fc.chooseFilter()

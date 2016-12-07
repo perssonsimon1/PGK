@@ -21,7 +21,7 @@ public class GaussFilter extends ImageFilter {
         Color[][] outPixels = new Color[colors.length][colors[0].length];
 
         for (Color[] row: outPixels)
-            Arrays.fill(row, new Color(0,0,0));
+            Arrays.fill(row, new Color(255,255,255));
 
         short[][] k = {{0,1,0},{1,(short) doubles[0],1},{0,1,0}};
         int kSum = 8;

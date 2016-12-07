@@ -1,7 +1,5 @@
 package Lab13.img
 
-import java.util
-
 import cslib.images.ImageFilter
 import cslib.window.SimpleWindow
 import scala.collection.mutable.ArrayBuffer
