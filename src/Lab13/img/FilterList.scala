@@ -20,7 +20,7 @@ class  FilterList {
     val img: Image = image
     val temp: Array[Double] = Array[Double](0.0)
     for(f <- filters.indices){
-      img.updateImage(filters(f)._1.apply(img.getColorMatrix, temp))
+      img.updateImage(filters(f)._1.apply(img.getColorMatrix, filters(f)._2))
     }
 
     sw.drawImage(img.image)

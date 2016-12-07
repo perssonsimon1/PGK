@@ -1,6 +1,7 @@
 package Lab13.img.Filters;
 
 import cslib.images.ImageFilter;
+import scala.util.Random;
 
 import java.awt.*;
 
@@ -17,10 +18,17 @@ public class XORCryptFilter extends ImageFilter {
     public Color[][] apply(Color[][] colors, double[] doubles) {
 
         Color[][] out = colors;
+        int seed = (int) Math.round(doubles[0]);
+
+        Random rnd = new Random(seed);
+        final int rndNbr = Math.abs(rnd.nextInt());
 
         for(int i = 0 ; i < colors.length ; i++){
             for(int j = 0 ; j < colors[i].length ; j++){
-                out[i][j] = new Color(0,0,out[i][j].getBlue());
+                int red = ((out[i][j].getRed() ^ rndNbr) % 256);
+                int green = ((out[i][j].getGreen() ^ rndNbr) % 256);
+                int blue = ((out[i][j].getBlue() ^ rndNbr) % 256);
+                out[i][j] = new Color(red, green, blue);
             }
         }
 
