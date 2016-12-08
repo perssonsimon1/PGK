@@ -6,9 +6,6 @@ import scala.util.Random;
 import java.awt.*;
 import java.util.Arrays;
 
-/**
- * Created by simonpersson on 2016-12-06.
- */
 public class SobelFilter extends ImageFilter {
 
     public SobelFilter(String var1, int var2) {
@@ -26,8 +23,16 @@ public class SobelFilter extends ImageFilter {
 
         short[][] intensity = computeIntensity(colors);
 
-        short[][] x_sobel = {{-1,0,1},{-2,0,2},{-1,0,1}};
-        short[][] y_sobel = {{-1,-2,-1},{0,0,0},{1,2,1}};
+        short[][] x_sobel = {
+                {-1,0,1},
+                {-2,0,2},
+                {-1,0,1}
+        };
+        short[][] y_sobel = {
+                {-1,-2,-1},
+                {0,0,0},
+                {1,2,1}
+        };
 
 
         for(int i = 1 ; i < intensity.length - 1 ; i++){

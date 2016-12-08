@@ -6,9 +6,6 @@ import Lab13.img.Filters._
 import cslib.images.ImageFilter
 import cslib.window.SimpleWindow
 
-/**
-  * Created by simonpersson on 2016-12-06.
-  */
 object ImageProcessing {
   def main(args: Array[String]): Unit = {
     val img = new Image(ImageUI.getImage)

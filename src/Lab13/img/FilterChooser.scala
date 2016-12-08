@@ -4,11 +4,12 @@ import java.util.Scanner
 
 import cslib.images.ImageFilter
 
-/**
-  * Created by simonpersson on 2016-12-06.
-  */
 class FilterChooser(filters: Array[ImageFilter]) {
 
+  /**
+    *
+    * @return   A FilterList containing the filters chosen by the user
+    */
   def chooseFilter(): FilterList = {
     val out: FilterList = new FilterList()
 

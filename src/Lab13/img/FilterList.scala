@@ -4,16 +4,23 @@ import cslib.images.ImageFilter
 import cslib.window.SimpleWindow
 import scala.collection.mutable.ArrayBuffer
 
-/**
-  * Created by simonpersson on 2016-12-06.
-  */
 class  FilterList {
   var filters = ArrayBuffer[(ImageFilter, Array[Double])]()
 
+  /**
+    *
+    * @param filter   A filter to be added to the FilterList
+    * @param args     Extra arguments if required by filter
+    */
   def addFilter(filter: ImageFilter, args: Array[Double] = Array(0.0)): Unit = {
     filters += Tuple2(filter, args)
   }
 
+  /**
+    *
+    * @param image    The image to be filtered
+    * @param sw       A window to display the final image in
+    */
   def applyFilter(image: Image, sw: SimpleWindow): Unit = {
     val img: Image = image
     val temp: Array[Double] = Array[Double](0.0)

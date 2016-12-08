@@ -6,9 +6,6 @@ import scala.util.Random;
 import java.awt.*;
 import java.util.Arrays;
 
-/**
- * Created by simonpersson on 2016-12-06.
- */
 public class GaussFilter extends ImageFilter {
 
     public GaussFilter(String var1, int var2) {
