@@ -11,7 +11,7 @@ class  FilterList {
   var filters = ArrayBuffer[(ImageFilter, Array[Double])]()
 
   def addFilter(filter: ImageFilter, args: Array[Double] = Array(0.0)): Unit = {
-    filters += new Tuple2(filter, args)
+    filters += Tuple2(filter, args)
   }
 
   def applyFilter(image: Image, sw: SimpleWindow): Unit = {
